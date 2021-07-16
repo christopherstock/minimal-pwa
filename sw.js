@@ -7,7 +7,7 @@
     const cacheList = [
         '/',
         "index.html",
-        "test-image.png"
+        "test-image.jpg"
     ]
 
     self.addEventListener('install', function (e) {
