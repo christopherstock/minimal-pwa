@@ -3,13 +3,13 @@
   "short_name": "PWA Demo",
   "display": "standalone",
   "start_url": "/",
-  "theme_color": "#313131",
-  "background_color": "#313131",
+  "theme_color": "#ff7700",
+  "background_color": "#ff7700",
   "icons": [
     {
-      "src": "e.png",
+      "src": "favicon.ico",
       "sizes": "256x256",
-      "type": "image/png"
+      "type": "image/ico"
     }
   ]
 }

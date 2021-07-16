@@ -1,55 +1,56 @@
-console.log('Script loaded!')
-var cacheStorageKey = 'minimal-pwa-8'
 
-var cacheList = [
-    '/',
-    "index.html",
-    "main.css",
-    "e.png",
-    "pwa-fonts.png"
-]
+    console.log('sw.js!')
 
-self.addEventListener('install', function (e) {
-    console.log('>> EVENT: install (the "cache" event)')
-    e.waitUntil(
-        caches.open(cacheStorageKey).then(function (cache) {
-            console.log('Adding to Cache:', cacheList)
-            return cache.addAll(cacheList)
-        }).then(function () {
-            console.log('Skip waiting!')
-            return self.skipWaiting()
-        })
-    )
-})
+    const cacheStorageKey = 'minimal-pwa-8'
 
-self.addEventListener('activate', function (e) {
-    console.log('>> EVENT: activate')
-    e.waitUntil(
-        Promise.all(
-            caches.keys().then(cacheNames => {
-                return cacheNames.map(name => {
-                    if (name !== cacheStorageKey) {
-                        return caches.delete(name)
-                    }
-                })
+    const cacheList = [
+        '/',
+        "index.html",
+        "main.css",
+        "test-image.png"
+    ]
+
+    self.addEventListener('install', function (e) {
+        console.log('>> EVENT: install (the "cache" event)')
+        e.waitUntil(
+            caches.open(cacheStorageKey).then(function (cache) {
+                console.log('Adding to Cache:', cacheList)
+                return cache.addAll(cacheList)
+            }).then(function () {
+                console.log('Skip waiting!')
+                return self.skipWaiting()
             })
-        ).then(() => {
-            console.log('Clients claims.')
-            return self.clients.claim()
-        })
-    )
-})
+        )
+    })
 
-self.addEventListener('fetch', function (e) {
-    console.log('>> EVENT: fetch:', e.request.url)
-    e.respondWith(
-        caches.match(e.request).then(function (response) {
-            if (response != null) {
-                console.log('Using cache for:', e.request.url)
-                return response
-            }
-            console.log('Fallback to fetch:', e.request.url)
-            return fetch(e.request.url)
-        })
-    )
-})
+    self.addEventListener('activate', function (e) {
+        console.log('>> EVENT: activate')
+        e.waitUntil(
+            Promise.all(
+                caches.keys().then(cacheNames => {
+                    return cacheNames.map(name => {
+                        if (name !== cacheStorageKey) {
+                            return caches.delete(name)
+                        }
+                    })
+                })
+            ).then(() => {
+                console.log('Clients claims.')
+                return self.clients.claim()
+            })
+        )
+    })
+
+    self.addEventListener('fetch', function (e) {
+        console.log('>> EVENT: fetch:', e.request.url)
+        e.respondWith(
+            caches.match(e.request).then(function (response) {
+                if (response != null) {
+                    console.log('Using cache for:', e.request.url)
+                    return response
+                }
+                console.log('Fallback to fetch:', e.request.url)
+                return fetch(e.request.url)
+            })
+        )
+    })
