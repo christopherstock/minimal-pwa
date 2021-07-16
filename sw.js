@@ -1,7 +1,8 @@
 
     console.log('sw.js!')
 
-    const cacheStorageKey = 'minimal-pwa-8'
+    // const cacheStorageKey = 'minimal-pwa-8'
+    const cacheStorageKey = 'chrisy-key-1'
 
     const cacheList = [
         '/',
