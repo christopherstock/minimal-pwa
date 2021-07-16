@@ -7,7 +7,6 @@
     const cacheList = [
         '/',
         "index.html",
-        "main.css",
         "test-image.png"
     ]
 
